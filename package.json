@@ -1,7 +1,7 @@
 {
-  "name": "vitepress-theme-demoblock",
+  "name": "xw-components",
   "version": "1.4.2",
-  "description": "vitepress-theme-demoblock",
+  "description": "components",
   "repository": {
     "type": "git",
     "url": "https://github.com/xinlei3166/vitepress-theme-demoblock"
@@ -30,10 +30,12 @@
   ],
   "main": "demoblock/index.js",
   "scripts": {
-    "doc": "yarn register:components && vitepress dev docs --port 4000",
-    "docs:build": "yarn register:components && vitepress build docs",
+    "doc": "vitepress dev docs --port 4000",
+    "build": "npm run build3 && npm run build2",
+    "build3": "npx vue-demi-switch 3 && vite build",
+    "build2": "npx vue-demi-switch 2 && cd example/v2 && vite build",
+    "docs:build": " vitepress build docs",
     "docs:serve": "vitepress serve docs",
-    "register:components": "node bin/vitepress-register-components.js",
     "test": "jest",
     "lint": "eslint --fix --ext .js,.jsx,.ts,.tsx,.vue",
     "release": "yunque-release --skipBuild",
@@ -69,13 +71,29 @@
     "ts-jest": "^26.3.0",
     "ts-node": "^9.1.1",
     "tsup": "^4.11.1",
+    "@vitejs/plugin-vue": "2.2.4",
+    "vue-demi": "^0.12.1",
+    "vue": "^3.2.31",
     "typescript": "^4.2.3",
     "vue-eslint-parser": "^7.6.0",
-    "yorkie": "^2.0.0"
+    "yorkie": "^2.0.0",
+    "vite-plugin-dts": "^1.0.2"
   },
   "gitHooks": {
     "pre-commit": "lint-staged",
     "commit-msg": "node scripts/verify-commit.js"
+  },
+  "peerDependencies": {
+    "@vue/composition-api": "^1.1.0",
+    "vue": "^2.6.0 || ^3.2.0"
+  },
+  "peerDependenciesMeta": {
+    "vue": {
+      "optional": true
+    },
+    "@vue/composition-api": {
+      "optional": true
+    }
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,vue}": [

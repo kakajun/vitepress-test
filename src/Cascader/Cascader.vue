@@ -20,7 +20,7 @@ export default {
       type: Array,
       default: () => []
     },
-    value: {
+    modelValue: {
       type: Array,
       default: () => []
     }
@@ -29,7 +29,7 @@ export default {
   computed: {
     arr: {
       get() {
-        return this.value
+        return this.modelValue
       },
       set(val) {
         this.$emit('input', val)
@@ -59,7 +59,7 @@ export default {
      * @author: majun
      */
     visibleChange() {
-      if (this.value && this.value.length > 0) {
+      if (this.modelValue && this.modelValue.length > 0) {
         this.expandChange()
       }
     },
@@ -74,10 +74,12 @@ export default {
       console.log(maxLevel, '3')
       this.$nextTick(() => {
         const dom = document.querySelector('.el-cascader-panel')
-        const len = dom.childNodes.length
-        // console.log([dom],"this.maxLevel");
+        const len = dom.children.length
+        console.log([dom], len, maxLevel + 1, 'this.maxLevel')
         if (len === maxLevel + 1) {
-          const selectLableDom = dom.children[len - 1].querySelectorAll('.el-cascader-node__label')
+          const selectLableDom = dom.children[len - 1].querySelectorAll(
+            '.el-scrollbar__view'
+          )
           console.log(selectLableDom, 'selectLableDom')
           for (let index = 0; index < selectLableDom.length; index++) {
             const el = selectLableDom[index]
@@ -85,7 +87,9 @@ export default {
               this.previousElementSibling.click()
             }
           }
-          const selectDom = dom.children[len - 1].querySelectorAll('.el-checkbox__input')
+          const selectDom = dom.children[len - 1].querySelectorAll(
+            '.el-checkbox__input'
+          )
           for (let index = 0; index < selectDom.length; index++) {
             const element = selectDom[index]
             element.style.display = 'inline-block'
